@@ -11,6 +11,7 @@ Fonts vía CDN).
 ```
 index.html                      → landing / índice para elegir el tema
 css/styles.css                  → sistema de diseño compartido por toda la app
+img/                             → imágenes usadas dentro de las actividades
 js/engine.js                    → motor genérico de actividades (no tocar para agregar contenido)
 js/home.js                      → arreglo TOPICS que arma la landing
 temas/
@@ -65,7 +66,10 @@ Ejemplo mínimo:
 
 Opcionalmente, cualquier actividad puede incluir `chart: { series: [{label, value}, ...] }`
 para dibujar un gráfico de barras arriba de la consigna (se usa en
-Estadística y Probabilidad).
+Estadística y Probabilidad), o `image: { src, alt, caption? }` para mostrar
+una imagen (por ejemplo un cuadro o una ilustración escaneada del
+cuadernillo). Las imágenes van en la carpeta `img/` y se referencian desde
+los archivos de tema con ruta relativa `../img/archivo.jpg`.
 
 `id` debe ser único dentro del tema: es la clave que se usa para guardar el
 progreso en `localStorage`.
@@ -83,3 +87,30 @@ progreso en `localStorage`.
 
 Con eso alcanza: el motor, el sistema de progreso y los estilos se
 reutilizan automáticamente.
+
+## Borrar el progreso guardado (uso con varios grupos en las mismas Chromebooks)
+
+El progreso se guarda en el `localStorage` del navegador, así que queda
+asociado a esa computadora, no a la persona. Para reutilizar las mismas
+Chromebooks con un grupo distinto:
+
+- **Desde la propia app (recomendado):** en el pie de la landing (`index.html`)
+  hay un enlace *"Borrar todo el progreso guardado en esta computadora"* que
+  limpia los 3 temas de una sola vez. Dentro de cada tema también hay un
+  botón *"Borrar progreso ↺"* junto al anillo de porcentaje, por si querés
+  reiniciar solo esa área. Ambos piden confirmación antes de borrar.
+- **Manualmente, sin tocar la app:** en Chrome, con la página abierta, ir a
+  los tres puntos → *Más herramientas* → *Herramientas para desarrolladores*
+  → pestaña *Application* → *Local Storage* → clic derecho sobre el dominio
+  → *Clear*. O más simple: ícono del candado/información junto a la URL →
+  *Configuración del sitio* → *Borrar datos*.
+- **Por consola:** con `F12` abierto, pestaña *Console*, ejecutar
+  `localStorage.clear()` (borra todo lo guardado por esa página) o, para
+  borrar solo el progreso de esta app sin tocar otras herramientas que usen
+  el mismo navegador, `Object.keys(localStorage).filter(k =>
+  k.startsWith('av5:progress:')).forEach(k => localStorage.removeItem(k))`.
+
+Si se usa **Chrome en modo invitado** o una ventana de incógnito por cada
+grupo, el progreso ni siquiera hace falta borrarlo: desaparece solo al
+cerrar la sesión.
+
