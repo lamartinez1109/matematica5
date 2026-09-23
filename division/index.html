@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡A Dividir! - Práctica de Divisiones 5º Grado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="app-header">
+  <div class="header-inner">
+    <div class="brand" data-nav="inicio">
+      <span class="brand-icon">➗</span>
+      <span class="brand-title">¡A Dividir!</span>
+    </div>
+    <nav id="main-nav">
+      <button class="nav-btn active" data-nav="inicio">🏠 Inicio</button>
+      <button class="nav-btn" data-nav="tutorial">📘 Tutorial</button>
+      <button class="nav-btn" data-nav="tablas">✖️ Tablas</button>
+      <button class="nav-btn" data-nav="nivel1">🥉 Nivel 1</button>
+      <button class="nav-btn" data-nav="nivel2">🥈 Nivel 2</button>
+    </nav>
+  </div>
+</header>
+
+<main id="app-main">
+
+  <!-- ===================== INICIO ===================== -->
+  <section id="view-inicio" class="view active">
+    <div class="hero">
+      <h1>¡Bienvenido/a a <span class="accent">A Dividir!</span></h1>
+      <p class="hero-sub">Practicá el mecanismo de la división paso a paso, como en tu carpeta.</p>
+    </div>
+    <div class="cards-grid">
+      <button class="menu-card" data-nav="tutorial">
+        <div class="menu-card-icon">📘</div>
+        <h3>Tutorial</h3>
+        <p>Repasá las partes de la división y el paso a paso del mecanismo.</p>
+      </button>
+      <button class="menu-card" data-nav="tablas">
+        <div class="menu-card-icon">✖️</div>
+        <h3>Tablas</h3>
+        <p>Repasá las tablas de multiplicar y practicá para dividir más rápido.</p>
+      </button>
+      <button class="menu-card" data-nav="nivel1">
+        <div class="menu-card-icon">🥉</div>
+        <h3>Nivel 1</h3>
+        <p>División por <strong>1 cifra</strong>. Dividendos de 2 a 5 cifras.</p>
+      </button>
+      <button class="menu-card" data-nav="nivel2">
+        <div class="menu-card-icon">🥈</div>
+        <h3>Nivel 2</h3>
+        <p>División por <strong>2 cifras</strong>. Dividendos de 2 a 5 cifras.</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================== TUTORIAL ===================== -->
+  <section id="view-tutorial" class="view">
+    <h2 class="view-title">📘 Tutorial: el mecanismo de la división</h2>
+    <div class="tutorial-box">
+      <div id="tutorial-slide" class="tutorial-slide"></div>
+      <div class="tutorial-controls">
+        <button id="tut-prev" class="btn btn-secondary">⬅ Anterior</button>
+        <span id="tut-progress" class="tutorial-progress"></span>
+        <button id="tut-next" class="btn btn-primary">Siguiente ➡</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TABLAS ===================== -->
+  <section id="view-tablas" class="view">
+    <h2 class="view-title">✖️ Tablas de multiplicar</h2>
+
+    <div class="tablas-tabs">
+      <button class="tab-btn active" data-tab="consulta">📖 Consultar tabla</button>
+      <button class="tab-btn" data-tab="practicar">🎯 Practicar</button>
+    </div>
+
+    <div id="tablas-consulta" class="tablas-panel active">
+      <div class="tabla-selector" id="tabla-selector"></div>
+      <div class="tabla-resultado" id="tabla-resultado"></div>
+    </div>
+
+    <div id="tablas-practicar" class="tablas-panel">
+      <div class="practica-card">
+        <div class="practica-score">Aciertos: <span id="practica-aciertos">0</span> / <span id="practica-total">0</span></div>
+        <div class="practica-pregunta" id="practica-pregunta">¿Cuánto es 6 × 7?</div>
+        <input type="number" id="practica-input" class="practica-input" placeholder="?">
+        <div class="practica-buttons">
+          <button id="practica-comprobar" class="btn btn-primary">Comprobar</button>
+          <button id="practica-siguiente" class="btn btn-secondary">Siguiente ➡</button>
+        </div>
+        <div id="practica-feedback" class="practica-feedback"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NIVEL 1 (1 cifra) ===================== -->
+  <section id="view-nivel1" class="view">
+    <h2 class="view-title">🥉 Nivel 1 — División por 1 cifra</h2>
+    <p class="view-desc">Elegí cuántas cifras querés que tenga el dividendo. ¡Empezá por 2 e ideal ir subiendo!</p>
+    <div class="dificultad-selector" id="nivel1-dif"></div>
+    <div class="ejercicio-toolbar">
+      <button id="nivel1-nuevo" class="btn btn-primary">🔄 Nuevo ejercicio</button>
+    </div>
+    <div id="nivel1-exercise" class="exercise-area"></div>
+  </section>
+
+  <!-- ===================== NIVEL 2 (2 cifras) ===================== -->
+  <section id="view-nivel2" class="view">
+    <h2 class="view-title">🥈 Nivel 2 — División por 2 cifras</h2>
+    <p class="view-desc">Elegí cuántas cifras querés que tenga el dividendo.</p>
+    <div class="dificultad-selector" id="nivel2-dif"></div>
+    <div class="ejercicio-toolbar">
+      <button id="nivel2-nuevo" class="btn btn-primary">🔄 Nuevo ejercicio</button>
+    </div>
+    <div id="nivel2-exercise" class="exercise-area"></div>
+  </section>
+
+</main>
+
+<footer id="app-footer">
+  <p>Hecho para practicar división • Área: Matemática • 5º grado</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

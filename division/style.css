@@ -1,0 +1,541 @@
+:root{
+  --primary:#3a6df0;
+  --primary-dark:#2650c4;
+  --secondary:#ff9f43;
+  --success:#22b573;
+  --success-bg:#e4f9ee;
+  --danger:#e5484d;
+  --danger-bg:#fdeaea;
+  --bg:#f4f7ff;
+  --card-bg:#ffffff;
+  --text:#22314f;
+  --text-soft:#5c6a8a;
+  --border:#dfe6f7;
+  --radius:16px;
+  --radius-sm:10px;
+  --nivel2-accent:#8b5cf6;
+  --digit-w:1.55rem;
+  --digit-font:2rem;
+  font-family:'Quicksand',sans-serif;
+}
+
+/* Fuente monoespaciada para todo lo que deba alinearse cifra a cifra
+   (dividendo, producto a restar, resultado de la resta). Usar la misma
+   fuente y el mismo ancho de celda (--digit-w) en todos estos elementos
+   es lo que garantiza que las cajas queden justo debajo de la cifra que
+   corresponde. */
+.mono-digits{
+  font-family:'Consolas','Menlo','Liberation Mono',monospace;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+h1,h2,h3{font-family:'Baloo 2',cursive;margin:0;}
+
+/* ---------- HEADER ---------- */
+#app-header{
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:50;
+  box-shadow:0 4px 14px rgba(38,80,196,0.25);
+}
+.header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:.7rem 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:.6rem;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  cursor:pointer;
+  background:none;
+  border:none;
+  color:#fff;
+}
+.brand-icon{font-size:1.8rem;}
+.brand-title{font-family:'Baloo 2',cursive;font-size:1.4rem;font-weight:800;}
+
+#main-nav{display:flex;gap:.4rem;flex-wrap:wrap;}
+.nav-btn{
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  background:rgba(255,255,255,0.12);
+  border:2px solid transparent;
+  color:#fff;
+  padding:.5rem .9rem;
+  border-radius:999px;
+  cursor:pointer;
+  transition:all .15s ease;
+  font-size:.92rem;
+}
+.nav-btn:hover{background:rgba(255,255,255,0.24);}
+.nav-btn.active{background:#fff;color:var(--primary-dark);}
+
+/* ---------- MAIN / VIEWS ---------- */
+#app-main{
+  flex:1;
+  max-width:1100px;
+  width:100%;
+  margin:0 auto;
+  padding:1.4rem 1rem 3rem;
+}
+.view{display:none;animation:fadeIn .25s ease;}
+.view.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.view-title{font-size:1.6rem;margin-bottom:.3rem;}
+.view-desc{color:var(--text-soft);margin:.2rem 0 1.1rem;}
+
+/* ---------- HERO / HOME ---------- */
+.hero{text-align:center;padding:1.6rem 1rem 1rem;}
+.hero h1{font-size:2rem;}
+.accent{color:var(--primary);}
+.hero-sub{color:var(--text-soft);font-size:1.05rem;margin-top:.4rem;}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+  margin-top:1.4rem;
+}
+.menu-card{
+  background:var(--card-bg);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.3rem 1.1rem;
+  text-align:left;
+  cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  font-family:'Quicksand',sans-serif;
+}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(58,109,240,.15);border-color:var(--primary);}
+.menu-card-icon{font-size:2.1rem;margin-bottom:.4rem;}
+.menu-card h3{font-size:1.15rem;margin-bottom:.3rem;color:var(--primary-dark);}
+.menu-card p{margin:0;color:var(--text-soft);font-size:.92rem;line-height:1.35;}
+
+/* ---------- BUTTONS ---------- */
+.btn{
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  border:none;
+  border-radius:999px;
+  padding:.65rem 1.3rem;
+  cursor:pointer;
+  font-size:.95rem;
+  transition:transform .1s ease, box-shadow .15s ease, opacity .15s ease;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 10px rgba(58,109,240,.3);}
+.btn-primary:hover{background:var(--primary-dark);}
+.btn-secondary{background:#eef1fb;color:var(--primary-dark);}
+.btn-secondary:hover{background:#e0e6fa;}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+
+/* ---------- DIFICULTAD SELECTOR ---------- */
+.dificultad-selector{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;}
+.dif-btn{
+  position:relative;
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  background:var(--card-bg);
+  border:2px solid var(--border);
+  color:var(--text);
+  padding:.7rem 1.1rem;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  min-width:108px;
+  text-align:center;
+}
+.dif-btn .dif-stars{display:block;font-size:.8rem;color:var(--secondary);margin-top:.15rem;min-height:1em;}
+.dif-btn.active{border-color:var(--primary);background:#eef2ff;color:var(--primary-dark);}
+.dif-btn:hover{border-color:var(--primary);}
+
+.ejercicio-toolbar{margin-bottom:1rem;}
+
+/* ---------- EXERCISE AREA / GALERA ---------- */
+.exercise-area{min-height:80px;}
+.ex-card{
+  background:var(--card-bg);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.3rem 1.2rem 1.5rem;
+}
+
+.galera-row{
+  display:flex;
+  align-items:flex-start;
+  gap:1.4rem;
+  flex-wrap:wrap;
+  margin-bottom:1.2rem;
+}
+.galera{
+  display:flex;
+  align-items:center;
+  gap:0;
+  font-family:'Baloo 2',cursive;
+}
+
+/* ---- Columna del dividendo: grilla de cifras de ancho fijo ----
+   Cada cifra ocupa exactamente --digit-w, tanto en el número de arriba
+   como en las cajas de las restas sucesivas, para que todo quede
+   alineado columna por columna. */
+.dividendo-column{
+  padding-left:1.6rem; /* deja lugar al signo "−" que se dibuja fuera de la grilla */
+}
+.dividendo-num{
+  display:flex;
+  font-size:var(--digit-font);
+  font-weight:700;
+  padding-right:.5rem;
+}
+.dividendo-num .dig{
+  display:inline-block;
+  width:var(--digit-w);
+  text-align:center;
+}
+
+/* ---- Ángulo del divisor: una esquina corta (vertical + horizontal
+   unidas), en vez de una línea vertical larga que atraviesa el cociente ---- */
+.galera-l{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-width:70px;
+  padding-top:.1rem;
+}
+.divisor-bracket{
+  display:inline-flex;
+  align-items:flex-end;
+  border-left:4px solid var(--text);
+  border-bottom:4px solid var(--text);
+  padding:.05rem .5rem .2rem .6rem;
+}
+.divisor-num{
+  font-size:var(--digit-font);
+  font-weight:700;
+  line-height:1;
+  padding:0 .1rem;
+}
+.cociente-boxes{
+  display:flex;
+  gap:.25rem;
+  justify-content:center;
+  margin-top:.4rem;
+}
+.cociente-input{
+  width:1.7rem;
+  border:none;
+  border-bottom:4px solid var(--border);
+  background:transparent;
+  font-family:'Baloo 2',cursive;
+  font-weight:800;
+  font-size:1.6rem;
+  text-align:center;
+  padding:0 0 .1rem;
+}
+.cociente-input:focus{outline:none;}
+.cociente-input.correcto{border-color:var(--success);background:var(--success-bg);color:var(--success)!important;}
+.cociente-input.incorrecto{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)!important;}
+
+/* ---- colores por paso (ciclan cada 5 pasos) ---- */
+.step-c0{color:#e5484d;border-color:#e5484d;}
+.step-c1{color:#3a6df0;border-color:#3a6df0;}
+.step-c2{color:#1a9e64;border-color:#1a9e64;}
+.step-c3{color:#e08600;border-color:#e08600;}
+.step-c4{color:#8b5cf6;border-color:#8b5cf6;}
+
+/* ---- Formato vertical de la resolución (como en la carpeta) ---- */
+.division-body{
+  display:flex;
+  gap:1.6rem;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  margin-bottom:1.2rem;
+}
+.vertical-steps{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  font-family:'Baloo 2',cursive;
+}
+/* El "−" se dibuja fuera de la grilla de cifras (posición absoluta), así
+   la caja del producto arranca en el mismo x=0 que el dividendo de
+   arriba y sus cifras quedan exactamente debajo de las que corresponde. */
+.vp-resta-row{
+  position:relative;
+  margin-top:.7rem;
+}
+.vp-minus{
+  position:absolute;
+  left:-1.35rem;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:1.6rem;
+  font-weight:800;
+}
+.vp-producto-input{
+  display:block;
+  padding:.1rem .15rem;
+  border:2.5px solid;
+  border-radius:8px;
+  background:#fff;
+  font-weight:700;
+  font-size:var(--digit-font);
+  text-align:right;
+}
+.vp-producto-input:focus{outline:none;}
+.vp-producto-input.correcto{border-color:var(--success)!important;background:var(--success-bg);color:var(--success)!important;}
+.vp-producto-input.incorrecto{border-color:var(--danger)!important;background:var(--danger-bg);color:var(--danger)!important;}
+
+.vp-underline{
+  margin:.3rem 0 .3rem 0;
+  border-bottom:3px solid;
+}
+.vp-resultado-row{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  margin-bottom:.1rem;
+}
+.vp-resultado-input{
+  padding:.15rem .15rem;
+  border:2.5px solid var(--border);
+  border-radius:8px;
+  background:#fff;
+  font-weight:700;
+  font-size:var(--digit-font);
+  text-align:right;
+  color:var(--text);
+}
+.vp-resultado-input:focus{outline:none;border-color:var(--primary);}
+.vp-resultado-input.correcto{border-color:var(--success);background:var(--success-bg);color:var(--success);}
+.vp-resultado-input.incorrecto{border-color:var(--danger);background:var(--danger-bg);color:var(--danger);}
+.vp-resto-tag{
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  font-size:.85rem;
+  color:var(--danger);
+  background:var(--danger-bg);
+  padding:.2rem .55rem;
+  border-radius:999px;
+}
+.dividendo-apostrofe{font-size:1.1rem;opacity:.55;margin:0 .05rem;}
+
+.aux-calc-panel{
+  flex:1;
+  min-width:200px;
+  max-width:260px;
+}
+.aux-title{font-weight:700;font-size:.85rem;color:var(--text-soft);margin-bottom:.4rem;}
+.aux-calc-panel textarea{
+  width:100%;
+  min-height:220px;
+  border-radius:var(--radius-sm);
+  border:2px dashed var(--border);
+  background:#fffdf4;
+  padding:.7rem .8rem;
+  font-family:'Quicksand',sans-serif;
+  font-size:.95rem;
+  resize:vertical;
+}
+
+.ex-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:.8rem;}
+
+.feedback-box{
+  border-radius:var(--radius-sm);
+  padding:.8rem 1rem;
+  font-weight:700;
+  font-family:'Quicksand',sans-serif;
+  display:none;
+}
+.feedback-box.show{display:block;}
+.feedback-box.ok{background:var(--success-bg);color:var(--success);}
+.feedback-box.bad{background:var(--danger-bg);color:var(--danger);}
+
+/* ---------- TUTORIAL ---------- */
+.tutorial-box{
+  background:var(--card-bg);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.3rem 1.3rem 1.1rem;
+}
+.tutorial-slide{min-height:280px;}
+.tutorial-slide h3{color:var(--primary-dark);margin-bottom:.5rem;font-size:1.25rem;}
+.tutorial-slide p{line-height:1.5;color:var(--text);}
+.tutorial-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:1rem;
+  padding-top:1rem;
+  border-top:1px solid var(--border);
+}
+.tutorial-progress{color:var(--text-soft);font-weight:700;font-size:.9rem;}
+
+.partes-diagram{
+  display:flex;
+  gap:1.6rem;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  margin:1rem 0;
+  padding:1rem;
+  background:#fafbff;
+  border-radius:var(--radius-sm);
+}
+.parte-item{text-align:center;}
+.parte-num{font-family:'Baloo 2',cursive;font-size:1.8rem;font-weight:800;}
+.parte-label{
+  display:inline-block;
+  margin-top:.35rem;
+  font-size:.78rem;
+  font-weight:700;
+  padding:.2rem .55rem;
+  border-radius:999px;
+  color:#fff;
+}
+.lbl-dividendo{background:var(--primary);}
+.lbl-divisor{background:var(--secondary);}
+.lbl-cociente{background:var(--success);}
+.lbl-resto{background:var(--danger);}
+
+.mini-galera{
+  font-family:'Baloo 2',cursive;
+  font-size:1.6rem;
+  font-weight:800;
+  display:inline-flex;
+  align-items:flex-start;
+  gap:0;
+  margin:.8rem 0;
+}
+.tut-step-line{
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  color:var(--text-soft);
+  font-size:.95rem;
+  margin-top:.15rem;
+}
+.tut-highlight{color:var(--primary-dark);background:#eef2ff;padding:.05rem .35rem;border-radius:5px;}
+
+/* ---------- TABLAS ---------- */
+.tablas-tabs{display:flex;gap:.6rem;margin-bottom:1rem;}
+.tab-btn{
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  background:var(--card-bg);
+  border:2px solid var(--border);
+  padding:.55rem 1.1rem;
+  border-radius:999px;
+  cursor:pointer;
+  color:var(--text-soft);
+}
+.tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.tablas-panel{display:none;}
+.tablas-panel.active{display:block;}
+
+.tabla-selector{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.tabla-chip{
+  width:2.6rem;height:2.6rem;
+  border-radius:50%;
+  border:2px solid var(--border);
+  background:var(--card-bg);
+  font-family:'Baloo 2',cursive;
+  font-weight:800;
+  font-size:1.05rem;
+  cursor:pointer;
+  color:var(--text);
+}
+.tabla-chip.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+.tabla-resultado{
+  background:var(--card-bg);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem 1.2rem;
+  max-width:320px;
+}
+.tabla-fila{
+  display:flex;
+  justify-content:space-between;
+  padding:.35rem 0;
+  border-bottom:1px dashed var(--border);
+  font-family:'Baloo 2',cursive;
+  font-size:1.1rem;
+  font-weight:700;
+}
+.tabla-fila:last-child{border-bottom:none;}
+
+.practica-card{
+  background:var(--card-bg);
+  border:2px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.6rem;
+  max-width:420px;
+  text-align:center;
+}
+.practica-score{font-weight:700;color:var(--text-soft);margin-bottom:.8rem;}
+.practica-pregunta{
+  font-family:'Baloo 2',cursive;
+  font-size:1.8rem;
+  font-weight:800;
+  color:var(--primary-dark);
+  margin-bottom:1rem;
+}
+.practica-input{
+  width:6rem;
+  font-size:1.4rem;
+  text-align:center;
+  padding:.5rem;
+  border-radius:10px;
+  border:2px solid var(--border);
+  font-family:'Quicksand',sans-serif;
+  font-weight:700;
+  margin-bottom:1rem;
+}
+.practica-input:focus{outline:none;border-color:var(--primary);}
+.practica-buttons{display:flex;gap:.6rem;justify-content:center;margin-bottom:.7rem;}
+.practica-feedback{font-weight:700;min-height:1.4em;}
+.practica-feedback.ok{color:var(--success);}
+.practica-feedback.bad{color:var(--danger);}
+
+/* ---------- FOOTER ---------- */
+#app-footer{
+  text-align:center;
+  padding:1rem;
+  color:var(--text-soft);
+  font-size:.85rem;
+}
+
+/* ---------- NIVEL 2 accent ---------- */
+#view-nivel2 .btn-primary{background:var(--nivel2-accent);box-shadow:0 4px 10px rgba(139,92,246,.3);}
+#view-nivel2 .btn-primary:hover{background:#7440e0;}
+#view-nivel2 .dif-btn.active{border-color:var(--nivel2-accent);background:#f4effe;color:#6b21e8;}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:640px){
+  :root{--digit-w:1.15rem; --digit-font:1.5rem;}
+  .header-inner{flex-direction:column;align-items:flex-start;}
+  #main-nav{width:100%;justify-content:space-between;}
+  .nav-btn{flex:1;font-size:.78rem;padding:.5rem .4rem;}
+  .dividendo-column{padding-left:1.3rem;}
+  .vp-minus{left:-1.1rem;font-size:1.3rem;}
+  .cociente-input{width:1.4rem;font-size:1.3rem;}
+}
