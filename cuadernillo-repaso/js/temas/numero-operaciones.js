@@ -9,7 +9,12 @@ const ACTIVITIES = [
     id: "no-1-duraciones",
     type: "match",
     title: "Duraciones musicales",
-    prompt: "Para armar la percusión del acto de fin de año, unan cada figura musical con la fracción de la redonda que representa su duración.",
+    prompt: "Para armar la percusión del acto de fin de año, unan cada figura musical con la fracción de la redonda que representa su duración. Mirá el cuadro de referencia:",
+    image: {
+      src: "../img/duracion-notas.jpg",
+      alt: "Cuadro con las figuras musicales redonda, blanca, negra, corchea y semicorchea, mostrando cuántas de cada una entran en una redonda completa.",
+      caption: "Cuadro de duraciones que usó el profe Francisco.",
+    },
     data: {
       pairs: [
         { left: "Redonda", right: "1" },
