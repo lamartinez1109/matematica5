@@ -42,6 +42,24 @@ function markActivityResult(topicId, activityId, correct) {
   return progress;
 }
 
+function clearTopicProgress(topicId) {
+  try {
+    localStorage.removeItem(storageKey(topicId));
+  } catch (e) {
+    /* localStorage no disponible */
+  }
+}
+
+function clearAllProgress() {
+  try {
+    Object.keys(localStorage)
+      .filter((key) => key.startsWith(`${STORAGE_PREFIX}:progress:`))
+      .forEach((key) => localStorage.removeItem(key));
+  } catch (e) {
+    /* localStorage no disponible */
+  }
+}
+
 function getTopicStats(topicId, totalActivities) {
   const progress = loadProgress(topicId);
   const ids = Object.keys(progress);
@@ -404,6 +422,18 @@ function renderBarChart(container, chart) {
   container.appendChild(wrap);
 }
 
+function renderActivityImage(container, image) {
+  const wrap = el("div", { class: "activity-image" });
+  const img = el("img", {
+    src: image.src,
+    alt: image.alt || "",
+    loading: "lazy",
+  });
+  wrap.appendChild(img);
+  if (image.caption) wrap.appendChild(el("p", { class: "activity-image__caption", text: image.caption }));
+  container.appendChild(wrap);
+}
+
 const RENDERERS = {
   "multiple-choice": renderMultipleChoice,
   "true-false": renderTrueFalse,
@@ -431,8 +461,27 @@ function initActivityPage(config) {
     const statsWrap = el("div", { class: "topic-header__stats" });
     const ring = el("div", { class: "ring" }, [el("div", { class: "ring__hole" })]);
     const scoreText = el("div", { class: "topic-header__score" });
+    const resetBtn = el("button", {
+      class: "btn btn-ghost btn-reset",
+      type: "button",
+      title: "Borra el progreso guardado de este tema en esta computadora",
+      text: "Borrar progreso ↺",
+    });
+    resetBtn.addEventListener("click", () => {
+      const sure = window.confirm(
+        "¿Borrar el progreso guardado de \"" + topicTitle + "\" en esta computadora? Esta acción no se puede deshacer."
+      );
+      if (!sure) return;
+      clearTopicProgress(topicId);
+      currentIndex = 0;
+      updateHeaderStats();
+      renderNav();
+      renderActivity();
+    });
+
     statsWrap.appendChild(ring);
     statsWrap.appendChild(scoreText);
+    statsWrap.appendChild(resetBtn);
     header.appendChild(statsWrap);
 
     header._ring = ring;
@@ -484,6 +533,7 @@ function initActivityPage(config) {
     panel.appendChild(el("div", { class: "activity-panel__prompt", html: activity.prompt }));
 
     if (activity.chart) renderBarChart(panel, activity.chart);
+    if (activity.image) renderActivityImage(panel, activity.image);
 
     const body = el("div", { class: "activity-body" });
     panel.appendChild(body);
@@ -550,5 +600,8 @@ window.Av5Engine = {
   loadProgress,
   saveProgress,
   getTopicStats,
+  clearTopicProgress,
+  clearAllProgress,
   initActivityPage,
 };
+
